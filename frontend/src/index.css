@@ -1,0 +1,61 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1F6B3F;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #154d2f;
+}
+
+.btn-primary {
+  @apply bg-[#1F6B3F] text-white px-4 py-2 rounded-lg hover:bg-[#154d2f] transition-all duration-300;
+}
+
+.btn-secondary {
+  @apply border-2 border-[#1F6B3F] text-[#1F6B3F] px-4 py-2 rounded-lg hover:bg-[#1F6B3F] hover:text-white transition-all duration-300;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all duration-300;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1F6B3F] transition-colors;
+}
+
+.error-text {
+  @apply text-red-500 text-sm mt-1;
+}
+
+.success-text {
+  @apply text-green-500 text-sm mt-1;
+}
