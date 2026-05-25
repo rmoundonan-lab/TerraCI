@@ -1,95 +1,268 @@
-# TerraCI - Plateforme Immobilière Sécurisée en Côte d'Ivoire 🏘️
+# TerraCI - Plateforme Immobilière Sécurisée 🏠
 
-Une plateforme fullstack moderne pour l'achat et la vente sécurisée de terrains en Côte d'Ivoire.
+## 📋 Vue d'ensemble
 
-## 🎯 Objectif
+TerraCI est une plateforme web moderne pour l'achat et la vente de terrains en Côte d'Ivoire. Elle offre une solution sécurisée et conviviale pour les acheteurs et vendeurs de propriétés.
 
-TerraCI est une solution immobilière professionnelle permettant :
-- Aux vendeurs de publier des terrains avec images et documents
-- Aux acheteurs de rechercher et contacter des vendeurs
-- L'affichage interactif sur carte GPS
-- La sécurisation des échanges et des offres
-- Un système de messagerie temps réel
+### ✨ Caractéristiques principales
 
-## 🚀 Stack Technique
+- **Authentification sécurisée** - JWT tokens avec refresh
+- **Gestion des annonces** - Créer, modifier, supprimer des listings de terrains
+- **Système d'offres** - Faire et gérer des offres d'achat
+- **Messagerie en temps réel** - Chat avec Socket.IO
+- **Favoris** - Marquer les terrains préférés
+- **Avis et notation** - Système de notation des utilisateurs
+- **Carte interactive** - Visualiser les terrains sur une carte
+- **Tableau de bord admin** - Gestion de la plateforme
+- **Notifications** - Alertes en temps réel
 
-### Frontend
-- **React 18** avec **Vite**
-- **Tailwind CSS** pour le styling
-- **React Router v6** pour la navigation
-- **Axios** pour les appels API
-- **Framer Motion** pour les animations
-- **React Icons** pour les icônes
-- **Leaflet** pour les cartes interactives
-- **TanStack Query** pour la gestion du state serveur
+## 🛠 Stack Technique
 
 ### Backend
-- **Node.js** runtime
-- **Express.js** framework
-- **PostgreSQL** base de données
-- **Sequelize** ORM
-- **JWT** pour l'authentification
-- **Socket.IO** pour le chat temps réel
-- **Multer** pour l'upload de fichiers
-- **Helmet** pour la sécurité
-- **bcryptjs** pour le hash des mots de passe
+- **Node.js & Express.js** - Serveur API REST
+- **PostgreSQL** - Base de données
+- **Sequelize** - ORM
+- **Socket.IO** - Communication en temps réel
+- **JWT** - Authentification
+- **Bcrypt** - Hachage des mots de passe
+- **Multer** - Upload de fichiers
+- **Nodemailer** - Envoi d'emails
 
-## 🎨 Design & Colors
-
-Inspirée de Airbnb, Zillow, Jumia House et Booking.com
-
-**Palette de couleurs:**
-- Vert Foncé: `#1F6B3F` (primaire)
-- Blanc: `#FFFFFF` (background)
-- Gris Clair: `#F5F5F5` (surfaces)
-- Gris Moyen: `#8B8B8B` (texte secondaire)
-- Doré léger: `#D4AF37` (accents)
+### Frontend
+- **React 18** - Framework UI
+- **Vite** - Bundler
+- **React Router** - Navigation
+- **Axios** - HTTP client
+- **Tailwind CSS** - Styling
+- **Zustand** - État global
+- **React Query** - Gestion des données
+- **Socket.IO Client** - WebSockets
+- **Framer Motion** - Animations
 
 ## 📁 Structure du Projet
 
 ```
 terraci/
-├── frontend/              # Application React
-├── backend/               # Serveur Node.js
-├── database/              # SQL Schema
-└── docs/                  # Documentation
+├── backend/
+│   ├── src/
+│   │   ├── config/          # Configuration (DB, env)
+│   │   ├── models/          # Modèles Sequelize
+│   │   ├── controllers/     # Logique métier
+│   │   ├── routes/          # Routes API
+│   │   ├── middleware/      # Middleware (auth, validation)
+│   │   ├── services/        # Services (email, socket, file)
+│   │   └── server.js        # Point d'entrée
+│   ├── database/
+│   │   └── migrations/      # Migrations DB
+│   ├── .env.example         # Variables d'environnement
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── api/             # Appels API
+│   │   ├── components/      # Composants React
+│   │   ├── pages/           # Pages de l'application
+│   │   ├── store/           # État global
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
+├── docs/
+│   ├── API.md               # Documentation API
+│   ├── DATABASE.md          # Schéma base de données
+│   └── SETUP.md             # Guide d'installation
+└── README.md
 ```
 
-## 🛠️ Installation Rapide
+## 🚀 Démarrage Rapide
+
+### Prérequis
+- Node.js 16+
+- PostgreSQL 12+
+- npm ou yarn
+
+### Installation Backend
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Éditer .env avec vos configurations
+
+# Créer la base de données
+creatdb terraci_db
+
+# Lancer le serveur
+npm run dev
+# Serveur sur http://localhost:5000
+```
+
+### Installation Frontend
+
+```bash
+cd frontend
+npm install
+cp .env.example .env.local
+
+# Démarrer l'application
+npm run dev
+# Accédez à http://localhost:5173
+```
+
+## 📚 Documentation
+
+- **[API Documentation](./docs/API.md)** - Endpoints et utilisation
+- **[Database Schema](./docs/DATABASE.md)** - Structure de la base de données
+- **[Setup Guide](./docs/SETUP.md)** - Guide d'installation détaillé
+
+## 🔐 Authentification
+
+### Flux d'authentification
+
+1. **Registration** - POST `/api/auth/register`
+2. **Login** - POST `/api/auth/login`
+3. **Token refresh** - POST `/api/auth/refresh-token`
+4. **Logout** - POST `/api/auth/logout`
+
+### Headers requis
+
+```
+Authorization: Bearer <access_token>
+```
+
+## 🗄️ Base de Données
+
+### Tables principales
+
+- **users** - Utilisateurs (acheteurs, vendeurs, admins)
+- **lands** - Annonces de terrains
+- **land_images** - Images des terrains
+- **land_documents** - Documents justificatifs
+- **offers** - Offres d'achat
+- **conversations** - Conversations entre utilisateurs
+- **messages** - Messages
+- **favorites** - Terrains favoris
+- **reviews** - Avis sur les utilisateurs
+- **notifications** - Notifications
+- **reports** - Signalements
+
+## 🔒 Sécurité
+
+### Implémentées
+- ✅ JWT authentication
+- ✅ Password hashing (bcrypt)
+- ✅ CORS configuration
+- ✅ Input validation
+- ✅ Role-based access control (RBAC)
+- ✅ Rate limiting (à implémenter)
+- ✅ SQL injection prevention (Sequelize ORM)
+
+## 📝 Endpoints API Principaux
+
+### Authentification
+```
+POST   /api/auth/register
+POST   /api/auth/login
+POST   /api/auth/logout
+POST   /api/auth/refresh-token
+```
+
+### Utilisateurs
+```
+GET    /api/users/me
+PUT    /api/users/me
+GET    /api/users/:id
+GET    /api/users/search
+```
+
+### Terrains
+```
+GET    /api/lands
+GET    /api/lands/:id
+POST   /api/lands
+PUT    /api/lands/:id
+DELETE /api/lands/:id
+GET    /api/lands/search
+```
+
+### Offres
+```
+POST   /api/offers
+GET    /api/offers/user/sent
+GET    /api/offers/user/received
+PUT    /api/offers/:id
+DELETE /api/offers/:id
+```
+
+### Messages
+```
+GET    /api/messages/conversations
+GET    /api/messages/conversations/:id
+POST   /api/messages
+```
+
+### Admin
+```
+GET    /api/admin/users
+GET    /api/admin/lands
+GET    /api/admin/reports
+GET    /api/admin/stats
+PUT    /api/admin/lands/:id/verify
+PUT    /api/admin/reports/:id
+```
+
+## 🧪 Tests
+
+```bash
+# Backend
+cd backend
+npm test
+
+# Frontend
+cd frontend
+npm test
+```
+
+## 📦 Build Production
 
 ### Backend
 ```bash
 cd backend
-npm install
-cp .env.example .env.local
-# Éditer .env.local
-npm run dev
+npm run build
+npm start
 ```
 
 ### Frontend
 ```bash
 cd frontend
-npm install
-cp .env.example .env.local
-npm run dev
+npm run build
+# Les fichiers sont dans dist/
 ```
 
-Frontend: http://localhost:5173
-Backend: http://localhost:5000
+## 🤝 Contribution
 
-## 📚 Documentation
+1. Fork le projet
+2. Créez une branche feature (`git checkout -b feature/AmazingFeature`)
+3. Commiter vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Pousser vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
 
-- [API Documentation](./docs/API.md)
-- [Setup Guide](./docs/SETUP.md)
-- [Database Schema](./database/schema.sql)
+## 📄 Licence
 
-## 🚀 Démarrage Rapide
+Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
 
-1. Créez une base PostgreSQL: `terraci_db`
-2. Configurez les variables d'environnement
-3. Exécutez les migrations
-4. Démarrez frontend et backend
+## 📧 Support
+
+Pour les questions ou problèmes:
+- Email: contact@terraci.ci
+- GitHub Issues: https://github.com/rmoundonan-lab/terraci/issues
+
+## 👨‍💻 Auteur
+
+**Rasheed Moundonan**
+- GitHub: [@rmoundonan-lab](https://github.com/rmoundonan-lab)
+- Email: rmoundonan@gmail.com
 
 ---
 
-**Construisons l'immobilier de demain ! 🏘️**
+**Dernière mise à jour**: Mai 2024
