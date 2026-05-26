@@ -1,1 +1,9 @@
-{\n  "experimentalServices": {\n    "frontend": {\n      "root": "frontend",\n      "routePrefix": "/",\n      "framework": "vite"\n    },\n    "backend": {\n      "root": "backend",\n      "routePrefix": "/_/backend"\n    }\n  }\n}\n
+{
+  "buildCommand": "npm install",
+  "outputDirectory": "frontend/dist",
+  "installCommand": "npm ci",
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "5000"
+  }
+}
