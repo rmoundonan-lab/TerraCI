@@ -1,9 +1,37 @@
 {
-  "buildCommand": "npm install",
-  "outputDirectory": "frontend/dist",
-  "installCommand": "npm ci",
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/package.json",
+      "use": "@vercel/node",
+      "config": {
+        "nodeVersion": "18.x"
+      }
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-builds",
+      "config": {
+        "distDir": "frontend/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/src/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/dist/index.html",
+      "status": 200
+    }
+  ],
   "env": {
     "NODE_ENV": "production",
-    "PORT": "5000"
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret",
+    "VITE_API_BASE_URL": "https://@vercel_url/api",
+    "VITE_SOCKET_URL": "https://@vercel_url"
   }
 }
